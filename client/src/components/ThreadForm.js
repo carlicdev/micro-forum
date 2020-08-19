@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const ThreadForm = () => {
     const [category, setCategory] = useState('');
@@ -7,9 +8,14 @@ const ThreadForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(`Category: ${category}`);
-        console.log(`Title: ${title}`);
-        console.log(`Comment: ${comment}`);
+        axios.post('/forum/new-thread', {
+            category, 
+            title, 
+            comment
+        });
+        setCategory('');
+        setTitle('');
+        setComment('');
     }
 
     return (
