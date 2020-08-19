@@ -4,7 +4,10 @@
   "description": "A tiny forum system with React, Express and Tailwindcss",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/index.js",
+    "client": "npm run start --prefix client",
+    "server": "nodemon server/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "CarliC",
   "license": "ISC",

@@ -770,4 +770,7 @@ module.exports = {
   },
   corePlugins: {},
   plugins: [],
+  future:{
+    removeDeprecatedGapUtilities: true,
+  }
 }

@@ -1,10 +1,16 @@
 import React from 'react';
 import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import Category from './components/Category';
+import ThreadDetails from './components/ThreadDetails';
 
 function App() {
   return (
     <div className="App">
-      <h1 className='font-bold text-5xl'>Hello World</h1>
+      <Switch>
+        <Route exact path='/' component={Category} />
+        <Route path='/:slug' component={ThreadDetails} />
+      </Switch>
     </div>
   );
 }
