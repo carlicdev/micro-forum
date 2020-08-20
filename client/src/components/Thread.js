@@ -7,7 +7,7 @@ const Thread = ({thread}) => {
             <div className='grid grid-cols-5'>
                 <div className='col-span-4'>
                     <p className='text-xl font-semibold text-blue-800'>
-                        <Link to={`/${thread.slug}`}>
+                        <Link to={`/forum/${thread.slug}`}>
                             {thread.title}
                         </Link>
                     </p>

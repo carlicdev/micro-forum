@@ -19,17 +19,17 @@ router.get('/:slug', async (req, res) => {
 
 // Post new thread
 router.post('/new-thread', (req, res) => {
-    const { category, title, comment, } = req.body;
+    const { category, title, comment, author } = req.body;
 
     const newPost = new Post({
         _id: new mongoose.Types.ObjectId,
         title,
         category,
-        author: 'John',
+        author: author,
         comments: [{
             _id: new mongoose.Types.ObjectId,
             content: comment,
-            author: 'John',
+            author: author,
             date: Date.now()
         }]
     });

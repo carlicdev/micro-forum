@@ -48,7 +48,7 @@ const ThreadDetails = ({match}) => {
                     <div className='flex py-2 max-w-4xl mx-auto'>
                     <button 
                         onClick={() => setIsOpen(true)}
-                        className='mr-2 ml-auto rounded px-2 py-1 text-white  bg-blue-600'>
+                        className='mr-2 ml-auto focus:outline-none rounded px-2 py-1 text-white  bg-blue-600'>
                         Write a Comment
                     </button>
                     </div>
@@ -63,7 +63,7 @@ const ThreadDetails = ({match}) => {
                         )
                     }
                     <button className='border border-red-600 bg-red-400 text-semibold rounded text-white px-4 py-1'>
-                        <Link to='/'>
+                        <Link to='/forum'>
                             Back
                         </Link>
                     </button>

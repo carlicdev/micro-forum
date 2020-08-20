@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { SessionContext } from '../context/session-context';
 
 const ThreadForm = () => {
     const [category, setCategory] = useState('');
     const [title, setTitle] = useState('');
     const [comment, setComment] = useState('');
+    const { user } = useContext(SessionContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('/forum/new-thread', {
             category, 
             title, 
-            comment
+            comment,
+            author: user.username
         });
         setCategory('');
         setTitle('');
@@ -21,7 +24,7 @@ const ThreadForm = () => {
     return (
         <div className='bg-gray-100 border border-gray-500 max-w-4xl mx-auto mt-2 rounded'>
             <div className='flex bg-gray-400 p-1'>
-                <p className='text-left'>Create new thread as: John</p>
+                <p className='text-left'>Create new thread as: { user ? user.username : 'Guest' }</p>
             </div>
             <form onSubmit={handleSubmit}>
                 <div className='flex flex-wrap w-full bg-gray-400'>

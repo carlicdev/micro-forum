@@ -5,6 +5,7 @@ export const SessionContext = createContext();
 
 const SessionContextProvider = (props) => {
     const [user, setUser] = useState(null);
+    const [logged, setLogged] = useState(false);
 
     useEffect(() => {
         const getUser = async () => {
@@ -17,20 +18,37 @@ const SessionContextProvider = (props) => {
             }
         }
         getUser()
-    }, [])
+    },[])
+
 
     const _login = (username, password) => {
         axios.post('/users/login', {
             username,
             password,
-        })
+        });
+    };
+
+    const _logout = () => {
+        axios.post('/users/logout');
+        setUser(null);
     }
 
+    const _signin = (username, email, password) => {
+         axios.post('/users/signin', {
+            username, 
+            email,
+            password
+        });
+    };
+
     console.log(user)
+    console.log(logged)
     return (
         <SessionContext.Provider value={{
             user,
-            _login
+            _login,
+            _logout,
+            _signin
         }}>
             {props.children}
         </SessionContext.Provider>
