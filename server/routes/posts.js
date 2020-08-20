@@ -51,13 +51,13 @@ router.post('/new-thread', (req, res) => {
 
 // Post new comment
 router.patch('/:slug', async (req, res) => {
-    const { comment } = req.body;
+    const { comment, author } = req.body;
     // Verify if theres a comment
     if(comment.length) {
         // Create new comment obj
         const newComment = {
             _id: new mongoose.Types.ObjectId,
-            author: 'Sam',
+            author: author,
             content: comment,
             date: Date.now()
         };

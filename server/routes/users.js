@@ -6,8 +6,11 @@ const passport = require('../passport/passport');
 const User = require('../models/user');
 
 // get user session
-router.get('/', (req, res) => {
-    res.send('hello world')
+router.get('/user', (req, res) => {
+    req.user ? 
+    res.json({user: req.user})
+    :
+    res.json({msg: 'no user'})
 });
 
 // Register new user

@@ -2,9 +2,13 @@ import React, { useContext } from 'react';
 import Thread from './Thread';
 import ThreadForm from './ThreadForm';
 import { ForumContext } from '../context/posts-context';
+import LoginForm from './Users/LoginForm';
+import { SessionContext } from '../context/session-context';
 
 const Category = () => {
     const { threads } = useContext(ForumContext);
+    const { user } = useContext(SessionContext);
+
     return (
         <div>
             {
@@ -12,7 +16,16 @@ const Category = () => {
                     return <Thread thread={thread} key={thread._id} />
                 })
             }
-            <ThreadForm />
+            {
+                user && (
+                    <ThreadForm />
+                )
+            }
+            {
+                !user && (
+                    <LoginForm />
+                )
+            }
         </div>
     )
 }

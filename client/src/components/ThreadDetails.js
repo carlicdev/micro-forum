@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
+import { SessionContext } from '../context/session-context';
+import LoginForm from './Users/LoginForm';
 
 const ThreadDetails = ({match}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [thread, setThread] = useState(null);
+
+    const { user } = useContext(SessionContext);
 
     useEffect(() => {
         const getPost = async () => {
@@ -49,8 +53,13 @@ const ThreadDetails = ({match}) => {
                     </button>
                     </div>
                     {
-                        isOpen && (
-                            <CommentForm slug={match.params.slug} toggler={toggleIsOpen}/>
+                        (isOpen && user) && (
+                                <CommentForm slug={match.params.slug} toggler={toggleIsOpen}/>
+                        )
+                    }
+                    {
+                        (isOpen && !user) && (
+                                <LoginForm/>
                         )
                     }
                     <button className='border border-red-600 bg-red-400 text-semibold rounded text-white px-4 py-1'>
