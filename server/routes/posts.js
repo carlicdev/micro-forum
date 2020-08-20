@@ -52,42 +52,45 @@ router.post('/new-thread', (req, res) => {
 // Post new comment
 router.patch('/:slug', async (req, res) => {
     const { comment } = req.body;
-    // Create new comment obj
-    const newComment = {
-        _id: new mongoose.Types.ObjectId,
-        author: 'Sam',
-        content: comment,
-        date: Date.now()
-    };
+    // Verify if theres a comment
+    if(comment.length) {
+        // Create new comment obj
+        const newComment = {
+            _id: new mongoose.Types.ObjectId,
+            author: 'Sam',
+            content: comment,
+            date: Date.now()
+        };
 
-    //Get a copy of comments array
-    const tempComments = await Post.findOne({slug: req.params.slug})
-        .then(result => {
-            return result.comments
-        })
-        .catch(err => {
-            res.status(500).json({
-                msg: 'couldn´t create new comment',
-                error: err.message
-            });
-        });
-    
-    // Push new comment
-    tempComments.push(newComment);
-
-    // Update comments array 
-    await Post.updateOne({slug: req.params.slug}, {$set:{comments: tempComments}})
-            .then(() => {
-                res.status(201).json({
-                    msg: 'new comment created'
-                });
+        //Get a copy of comments array
+        const tempComments = await Post.findOne({slug: req.params.slug})
+            .then(result => {
+                return result.comments
             })
             .catch(err => {
                 res.status(500).json({
                     msg: 'couldn´t create new comment',
                     error: err.message
                 });
-            }); 
+            });
+
+            // Push new comment
+            tempComments.push(newComment);
+        
+            // Update comments array 
+            await Post.updateOne({slug: req.params.slug}, {$set:{comments: tempComments}})
+                    .then(() => {
+                        res.status(201).json({
+                            msg: 'new comment created'
+                        });
+                    })
+                    .catch(err => {
+                        res.status(500).json({
+                            msg: 'couldn´t create new comment',
+                            error: err.message
+                        });
+                    }); 
+    }
 });
 
 module.exports = router;
